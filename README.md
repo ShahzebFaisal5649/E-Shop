@@ -114,3 +114,10 @@ For any inquiries or feedback, please reach out to:
 
 - **Email**: [l215649@lhr.nu.edu.pk](mailto:l215649@lhr.nu.edu.pk)
 - **GitHub**: [ShahzebFaisal5649](https://github.com/ShahzebFaisal5649)
+  
+![Screenshot 2024-08-08 164116](https://github.com/user-attachments/assets/79527d54-2ef1-43a2-8d53-d3f93e33df3b)
+![Screenshot 2024-08-08 164152](https://github.com/user-attachments/assets/cd0a96d8-687c-4d37-9873-7cd9af8a8e34)
+![Screenshot 2024-08-08 164315](https://github.com/user-attachments/assets/f2bd6216-1407-405e-a5a4-9480c3f0ca70)
+![Screenshot 2024-08-08 164254](https://github.com/user-attachments/assets/29f28944-ebde-4a22-a7e6-aec74d870561)
+![Screenshot 2024-08-08 164222](https://github.com/user-attachments/assets/76c9a1e8-34ad-4237-be3f-1728856edb09)
+![Screenshot 2024-08-08 164426](https://github.com/user-attachments/assets/e9aa1d22-b545-4a12-baf4-2e0afc131ddd)
