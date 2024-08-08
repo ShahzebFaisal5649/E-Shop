@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart | E-Commerce Website</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cart-item {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+    .cart-item img {
+      max-height: 150px;
+      object-fit: cover;
+    }
+    .cart-item-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-item-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .quantity-input {
+      width: 80px;
+    }
+    #cart-total {
+      border-top: 2px solid #ddd;
+      padding-top: 10px;
+      margin-top: 20px;
+      font-size: 1.25rem;
+    }
+    .remove-from-cart {
+      background-color: #dc3545;
+      color: #fff;
+    }
+    .remove-from-cart:hover {
+      background-color: #c82333;
+      color: #fff;
+    }
+    .proceed-to-pay {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.25rem;
+      margin-top: 20px;
+    }
+    .proceed-to-pay:hover {
+      background-color: #218838;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">E-Shop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="products.html">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html#about-us">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="login.html">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="register.html">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="cart.html">
+            <i class="fa fa-shopping-cart"></i> Cart
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Cart Section -->
+  <div class="container mt-5">
+    <h2 class="text-center">Your Cart</h2>
+    <div id="cart-items">
+      <!-- Cart items will be inserted here -->
+    </div>
+    <div id="cart-total" class="text-right">
+      <h4>Total: $0.00</h4>
+    </div>
+    <div class="text-center">
+      <button class="btn proceed-to-pay" onclick="window.location.href='checkout.html'">Proceed to Pay</button>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Custom JavaScript for Cart -->
+  <script>
+    $(document).ready(function () {
+      function displayCart() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItems = $('#cart-items');
+        let total = 0;
+
+        cartItems.empty(); // Clear existing items
+
+        cart.forEach(item => {
+          const itemTotal = item.price * item.quantity;
+          total += itemTotal;
+
+          cartItems.append(`
+            <div class="cart-item row">
+              <div class="col-md-3">
+                <img src="images/${item.name.replace(/ /g, '-')}.jpg" class="img-fluid" alt="${item.name}">
+              </div>
+              <div class="col-md-9 cart-item-details">
+                <div>
+                  <h5>${item.name}</h5>
+                  <p>$${item.price.toFixed(2)}</p>
+                </div>
+                <div class="cart-item-actions">
+                  <div class="form-group">
+                    <label for="quantity-${item.id}">Quantity:</label>
+                    <input type="number" class="form-control quantity-input" id="quantity-${item.id}" value="${item.quantity}" min="1" data-id="${item.id}">
+                  </div>
+                  <p class="mb-0">Total: $${itemTotal.toFixed(2)}</p>
+                  <button class="btn btn-danger remove-from-cart" data-id="${item.id}">Remove</button>
+                </div>
+              </div>
+            </div>
+          `);
+        });
+
+        // Update total amount
+        $('#cart-total h4').text(`Total: $${total.toFixed(2)}`);
+      }
+
+      function updateCartInLocalStorage(cart) {
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
+
+      function updateQuantity(productId, newQuantity) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const productIndex = cart.findIndex(item => item.id === productId);
+
+        if (productIndex !== -1) {
+          cart[productIndex].quantity = newQuantity;
+          updateCartInLocalStorage(cart);
+          displayCart(); // Display cart after updating quantity
+        }
+      }
+
+      function removeProduct(productId) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart = cart.filter(item => item.id !== productId);
+        updateCartInLocalStorage(cart);
+        displayCart(); // Display cart after removing product
+      }
+
+      // Event listener for quantity change
+      $('#cart-items').on('change', '.quantity-input', function () {
+        const productId = $(this).data('id');
+        const newQuantity = parseInt($(this).val(), 10);
+
+        if (newQuantity > 0) {
+          updateQuantity(productId, newQuantity);
+        } else {
+          // Optional: handle invalid quantity (e.g., show an error message)
+        }
+      });
+
+      // Event listener for remove button
+      $('#cart-items').on('click', '.remove-from-cart', function () {
+        const productId = $(this).data('id');
+        removeProduct(productId);
+      });
+
+      displayCart(); // Initial display
+    });
+  </script>
+</body>
+
+</html>

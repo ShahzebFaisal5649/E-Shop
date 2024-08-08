@@ -1,0 +1,549 @@
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Set default font */
+  line-height: 1.6; /* Adjust line height for readability */
+  background-color: #212529; /* Background color for the entire page */
+  color: #f8f9fa; /* Default text color */
+}
+
+/* Heading colors */
+h1, h2, h3, h4, h5, h6 {
+  color: #f8f9fa; /* Heading color */
+}
+
+/* Container padding */
+.container {
+  padding: 2rem 0; /* Adjust padding top and bottom */
+}
+
+/* Navigation Bar */
+nav.navbar {
+  background-color: #1c1c1c; /* Dark background color */
+}
+
+/* Logo Styling */
+.navbar-brand {
+  font-family: 'Pacifico', cursive; /* Apply the fancy font */
+  font-size: 2.5rem; /* Adjust size as needed */
+  color: #f39c12; /* Change color to your brand color */
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5); /* Add shadow for depth */
+  letter-spacing: 2px; /* Increase spacing between letters */
+  font-weight: bold;
+}
+
+.navbar-brand #shop {
+  color: #fff; /* Different color for "SHOP" */
+  text-shadow: none; /* Remove shadow for the second part */
+}
+
+.navbar-brand #brand {
+  color: #f39c12; /* Same color for "E-" */
+}
+
+.navbar-toggler {
+  border: none; /* Remove default border */
+}
+
+.navbar-toggler-icon {
+  background-color: #f39c12; /* Background color for the toggle icon */
+}
+
+/* Hero Section */
+.hero-section {
+  background: url('images/hero-background.jpg') no-repeat center center; /* Hero background image */
+  background-size: cover;
+  color: #fff;
+  padding: 100px 0; /* Padding top and bottom */
+  text-align: center; /* Center align content */
+}
+
+.hero-content {
+  animation: fadeInUp 1s ease-out; /* Fade in animation */
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.hero-image {
+  max-width: 100%;
+  transition: transform 0.3s ease-out; /* Smooth scale transition */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay */
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+  border-radius: 12px;
+}
+
+.hero-image-container:hover .hero-image {
+  transform: scale(1.1); /* Scale up image on hover */
+}
+
+.hero-image-container:hover .overlay {
+  opacity: 0.7; /* Show overlay on hover */
+}
+
+.hero-image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Form styling */
+.form-group {
+  margin-bottom: 1.5rem; /* Spacing between form elements */
+}
+
+.form-control {
+  border: 1px solid #ced4da; /* Input border color */
+  border-radius: .25rem; /* Input border radius */
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out; /* Smooth transition */
+  margin-bottom: 10px; /* Custom margin */
+}
+
+.form-control:focus {
+  border-color: #80bdff; /* Input focus border color */
+  outline: 0; /* Remove default focus outline */
+  box-shadow: 0 0 0 .2rem rgba(0,123,255,.25); /* Focus state box shadow */
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: #f39c12; /* Primary button color */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Button padding */
+  border-radius: 5px; /* Button border radius */
+}
+
+.btn-primary:hover {
+  background-color: #e67e22; /* Darker color on hover */
+}
+
+/* Card styling */
+.card {
+  border: 1px solid rgba(0,0,0,.125); /* Card border */
+  border-radius: .25rem; /* Card border radius */
+  margin-bottom: 20px; /* Custom margin */
+  background-color: #343a40; /* Card background color */
+}
+
+.card-body {
+  padding: 1.25rem; /* Card body padding */
+}
+
+.card-title {
+  margin-bottom: .75rem; /* Card title bottom margin */
+  color: #ffc107; /* Card title color */
+}
+
+.card-text {
+  margin-bottom: .5rem; /* Card text bottom margin */
+}
+
+/* Rating stars */
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.rating i {
+  font-size: 1.2rem; /* Star icon size */
+  color: gold; /* Star icon color */
+  margin-right: 5px; /* Space between stars */
+}
+
+.rating span {
+  margin-left: 10px; /* Space between stars and text */
+  font-size: 14px; /* Text size */
+  color: #666; /* Text color */
+}
+
+/* Footer */
+footer {
+  background-color: #343a40; /* Dark background color */
+  color: #f8f9fa; /* Text color for footer content */
+  padding: 3rem 0; /* Adjust padding top and bottom */
+}
+
+footer h5 {
+  margin-bottom: 1rem; /* Spacing for headings */
+}
+
+footer .social-media a {
+  margin: 0 0.5rem; /* Space between icons */
+  font-size: 1.5rem; /* Icon size */
+}
+
+.footer-content {
+  padding: 20px; /* Adjust padding for content */
+}
+
+.footer-content h5,
+.footer-content p {
+  color: #ccc; /* Paragraph text color */
+  margin-bottom: 5px; /* Adjust margin bottom for spacing */
+}
+
+.footer-content a {
+  color: #bbb; /* Link color (light gray) */
+  transition: color 0.3s ease; /* Smooth transition for link color */
+}
+
+.footer-content a:hover {
+  color: #f8f9fa; /* Change link color on hover to white */
+  text-decoration: underline; /* Underline on hover */
+}
+
+.footer-content i {
+  color: #bbb; /* Icon color (light gray) */
+}
+
+/* Newsletter Signup */
+.newsletter-signup {
+  background-color: #f8f9fa; /* Light background color */
+  padding: 2rem; /* Padding for newsletter section */
+}
+
+.newsletter-signup h3 {
+  margin-bottom: 1rem; /* Spacing for heading */
+}
+
+.newsletter-signup .form-control {
+  max-width: 400px; /* Max width for input */
+  margin: 0 auto; /* Center align */
+}
+
+/* Password strength indicator */
+.password-strength {
+  display: none; /* Hide by default */
+  font-size: 0.9em; /* Small font size */
+  margin-top: 5px; /* Spacing above indicator */
+}
+
+.password-strength.weak {
+  color: red; /* Weak password color */
+}
+
+.password-strength.medium {
+  color: orange; /* Medium password color */
+}
+
+.password-strength.strong {
+  color: green; /* Strong password color */
+}
+
+/* Table styling */
+.table {
+  width: 100%; /* Full width */
+  margin-bottom: 1rem; /* Space below table */
+  color: #f8f9fa; /* Table text color */
+  border-collapse: collapse; /* Collapse table borders */
+}
+
+.table th,
+.table td {
+  padding: .75rem; /* Cell padding */
+  vertical-align: top; /* Align content to the top */
+  border-top: 1px solid #dee2e6; /* Table border color */
+}
+
+.table thead th {
+  vertical-align: bottom; /* Align header content to the bottom */
+  border-bottom: 2px solid #dee2e6; /* Table header bottom border color */
+}
+
+/* Style for the carousel arrows */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%; /* Adjust the width of the arrows */
+  height: 100%; /* Full height */
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f8f9fa; /* Arrow color */
+  font-size: 2rem; /* Arrow size */
+}
+
+.carousel-control-prev {
+  left: 0;
+  background: rgba(0, 0, 0, 0.5); /* Add a background color for better visibility */
+}
+
+.carousel-control-next {
+  right: 0;
+  background: rgba(0, 0, 0, 0.5); /* Add a background color for better visibility */
+}
+
+/* Align carousel indicators and arrows correctly */
+.carousel-indicators {
+  bottom: -30px; /* Adjust as necessary */
+}
+
+/* Login Form Styling */
+#login-form {
+  max-width: 300px; /* Set max width */
+  margin: 0 auto; /* Center align */
+  padding: 20px; /* Padding inside the form */
+  border: 1px solid #ccc; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+}
+
+input[type="password"] {
+  width: 100%; /* Full width */
+  padding: 10px; /* Padding inside the input */
+  margin-bottom: 10px; /* Space below input */
+}
+
+input[type="checkbox"] {
+  margin-right: 5px; /* Space to the right of the checkbox */
+}
+
+/* Ensure carousel images are responsive */
+.carousel-item img {
+  width: 100%; /* Full width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Ensure carousel text is responsive */
+.carousel-item .card-body {
+  text-align: center; /* Center align text */
+  padding: 1.5rem; /* Adjust padding */
+}
+
+/* Search Bar */
+.search-bar {
+  width: 250px; /* Width of the search bar */
+}
+
+.search-results {
+  padding: 20px;
+  display: none; /* Hide by default */
+}
+
+.search-results .card {
+  margin-bottom: 20px; /* Spacing between results */
+}
+
+/* General Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navigation Bar */
+.navbar {
+  margin-bottom: 50px;
+}
+
+/* Carousel Styling */
+.carousel {
+  position: relative;
+}
+
+.carousel-item {
+  height: auto; /* Adjust the height as needed */
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensure the entire image is visible */
+  border-radius: 15px;
+}
+
+/* Card Styling */
+.product-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
+  padding: 15px; /* Adjust padding for a better layout */
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.product-card img {
+  width: 100%; /* Ensure image takes full width of the card */
+  height: 200px; /* Adjust height as needed */
+  object-fit: contain; /* Ensure the entire image is visible */
+  border-bottom: 1px solid #eee;
+}
+
+.product-card .card-body {
+  padding: 15px; /* Adjust padding for a better layout */
+  text-align: center;
+}
+
+.product-card .card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.product-card .card-text {
+  font-size: 1rem;
+  color: #555;
+}
+
+.product-card .btn {
+  margin-top: 10px;
+  background-color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 20px;
+}
+
+.product-card .btn:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+/* Indicators Styling */
+.carousel-indicators li {
+  background-color: #007bff;
+  border-radius: 50%;
+}
+
+.carousel-indicators .active {
+  background-color: #0056b3;
+}
+
+/* Container Styling */
+.container {
+  margin-top: 50px;
+}
+
+.text-warning {
+  color: #f39c12 !important;
+}
+
+
+/* Navigation Bar */
+.navbar {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/hero-background.jpg') no-repeat center center;
+  background-size: cover;
+  color: #fff;
+  padding: 100px 0;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.hero-content p {
+  font-size: 1.25rem;
+}
+
+.hero-image-container {
+  text-align: center;
+}
+
+.hero-image {
+  border-radius: 10px;
+}
+
+/* Search Bar */
+#search-bar {
+  background-color: #f8f9fa;
+  padding: 0px 0;
+  border-radius: 510px;
+}
+
+#search-input {
+  border-radius: 25px 0 0 25px;
+}
+
+#search-btn {
+  border-radius: 0 25px 25px 0;
+}
+
+/* About Us Section */
+#about-us {
+  background-color: #212529;
+  padding: 50px 0;
+}
+
+#about-us p {
+  font-size: 1.125rem;
+}
+
+/* Contact Form */
+#contact-form {
+  background-color: #212529;
+  padding: 50px 0;
+}
+
+#contact-form form {
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Footer */
+footer {
+  background-color: #212529;
+  color: #ffffff;
+}
+
+footer a {
+  color: #ffffff;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer .social-icons a {
+  font-size: 1.5rem;
+}
+

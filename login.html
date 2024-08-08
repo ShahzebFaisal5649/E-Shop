@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | E-Commerce Website</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    .password-strength {
+      margin-top: 5px;
+      font-size: 0.875rem;
+    }
+
+    .password-strength.weak {
+      color: red;
+    }
+
+    .password-strength.medium {
+      color: orange;
+    }
+
+    .password-strength.strong {
+      color: green;
+    }
+
+    .error-message {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">E-Shop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="products.html">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html#about-us">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="login.html">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="register.html">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="cart.html">
+            <i class="fa fa-shopping-cart"></i> Cart
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card p-4">
+          <div class="card-body">
+            <h2 class="card-title text-center">Login</h2>
+            <form id="loginForm">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                <div class="password-strength" id="password-strength"></div>
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="show-password">
+                <label class="form-check-label" for="show-password">Show Password</label>
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="rememberMe">
+                <label class="form-check-label" for="rememberMe">Remember Me</label>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Login</button>
+              <a href="forgot-password.html" class="d-block text-center mt-3">Forgot Password?</a>
+              <div id="login-feedback" class="text-center mt-3"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#loginForm').submit(function (event) {
+        event.preventDefault();
+        const username = $('#username').val();
+        const email = $('#email').val();
+        const password = $('#password').val();
+        const rememberMe = $('#rememberMe').is(':checked');
+
+        if (!validateEmail(email)) {
+          $('#login-feedback').text('Please enter a valid email address.').addClass('error-message');
+          return;
+        }
+
+        if (username && password) {
+          const storedUser = localStorage.getItem(username);
+          if (storedUser) {
+            const user = JSON.parse(storedUser);
+            if (user.password === password && user.email === email) {
+              $('#login-feedback').text('Login successful! Redirecting...').removeClass('text-danger').addClass('text-success');
+              if (rememberMe) {
+                localStorage.setItem('rememberedUser', username);
+              } else {
+                localStorage.removeItem('rememberedUser');
+              }
+              setTimeout(() => {
+                window.location.href = 'products.html';
+              }, 2000);
+            } else {
+              $('#login-feedback').text('Incorrect username, email, or password.').removeClass('text-success').addClass('text-danger');
+            }
+          } else {
+            $('#login-feedback').text('Username not found.').removeClass('text-success').addClass('text-danger');
+          }
+        } else {
+          $('#login-feedback').text('Please fill out all fields.').addClass('text-danger');
+        }
+      });
+
+      $('#show-password').change(function () {
+        const passwordField = $('#password');
+        passwordField.attr('type', this.checked ? 'text' : 'password');
+      });
+
+      $('#password').on('input', function () {
+        const strength = getPasswordStrength($(this).val());
+        const strengthElem = $('#password-strength');
+        strengthElem.text(strength.text).removeClass().addClass('password-strength ' + strength.class);
+      });
+
+      function validateEmail(email) {
+        const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return re.test(String(email).toLowerCase());
+      }
+
+      function getPasswordStrength(password) {
+        let strength = { text: 'Weak', class: 'weak' };
+        if (password.length > 6) {
+          strength = { text: 'Medium', class: 'medium' };
+          if (password.length > 10 && /[\W_]/.test(password)) {
+            strength = { text: 'Strong', class: 'strong' };
+          }
+        }
+        return strength;
+      }
+
+      const rememberedUser = localStorage.getItem('rememberedUser');
+      if (rememberedUser) {
+        $('#username').val(rememberedUser);
+        $('#rememberMe').prop('checked', true);
+      }
+    });
+  </script>
+</body>
+
+</html>

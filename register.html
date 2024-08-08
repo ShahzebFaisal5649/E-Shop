@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - E-Shop</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">E-Shop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="products.html">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html#about-us">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="login.html">Login</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="register.html">Register <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="cart.html">
+            <i class="fa fa-shopping-cart"></i> Cart
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Registration Form Section -->
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card p-4">
+          <div class="card-body">
+            <h2 class="card-title text-center">Register</h2>
+            <form id="registerForm">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Choose a username" required>
+                <div class="invalid-feedback">Please choose a username.</div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Choose a password" required>
+                <div id="password-strength" class="password-strength"></div>
+                <small id="passwordHelp" class="form-text text-muted" data-toggle="tooltip" data-placement="right" title="Password must be at least 8 characters long and include a mix of letters, numbers, and special characters.">Password requirements</small>
+                <div class="invalid-feedback">Please enter a password.</div>
+              </div>
+              <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" class="form-control" id="confirm-password" placeholder="Confirm your password" required>
+                <div class="invalid-feedback">Passwords do not match.</div>
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="show-password">
+                <label class="form-check-label" for="show-password">Show Password</label>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Register</button>
+              <div id="register-feedback" class="text-center mt-3"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Custom JavaScript for Register -->
+  <script>
+    $(document).ready(function() {
+      // Initialize tooltips
+      $('[data-toggle="tooltip"]').tooltip();
+
+      $('#show-password').click(function() {
+        const type = $(this).is(':checked') ? 'text' : 'password';
+        $('#password, #confirm-password').attr('type', type);
+      });
+
+      function checkPasswordStrength(password) {
+        const strengthElement = $('#password-strength');
+        let strength = 0;
+
+        if (password.length >= 8) strength += 1;
+        if (/[a-z]/.test(password)) strength += 1;
+        if (/[A-Z]/.test(password)) strength += 1;
+        if (/[0-9]/.test(password)) strength += 1;
+        if (/[@$!%*?&#]/.test(password)) strength += 1;
+
+        switch (strength) {
+          case 1:
+          case 2:
+            strengthElement.text('Weak').removeClass('medium strong').addClass('weak').show();
+            break;
+          case 3:
+            strengthElement.text('Medium').removeClass('weak strong').addClass('medium').show();
+            break;
+          case 4:
+          case 5:
+            strengthElement.text('Strong').removeClass('weak medium').addClass('strong').show();
+            break;
+          default:
+            strengthElement.hide();
+        }
+      }
+
+      $('#password').on('input', function() {
+        checkPasswordStrength($(this).val());
+      });
+
+      $('#registerForm').submit(function(event) {
+        event.preventDefault();
+        const username = $('#username').val();
+        const email = $('#email').val();
+        const password = $('#password').val();
+        const confirmPassword = $('#confirm-password').val();
+
+        if (username && email && password && confirmPassword) {
+          if (password === confirmPassword) {
+            const user = {
+              username: username,
+              email: email,
+              password: password
+            };
+            localStorage.setItem(username, JSON.stringify(user));
+            $('#register-feedback').text('Registration successful! Redirecting to login...').removeClass('text-danger').addClass('text-success');
+            setTimeout(() => {
+              window.location.href = 'login.html';
+            }, 2000);
+          } else {
+            $('#register-feedback').text('Passwords do not match.').removeClass('text-success').addClass('text-danger');
+          }
+        } else {
+          $('#register-feedback').text('Please fill out all fields.').addClass('text-danger');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

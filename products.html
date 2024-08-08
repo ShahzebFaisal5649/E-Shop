@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products | E-Commerce Website</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+<style>
+body {
+  background-color: #f8f9fa;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.carousel-indicators li {
+  background-color: #000;
+}
+
+.carousel-inner {
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+}
+
+.form-control {
+  border-radius: 20px;
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1050;
+  background-color: #28a745;
+  color: #fff;
+}
+
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.product-list .product-card {
+  margin-bottom: 20px;
+}
+
+/* Adjust the carousel to match the width and height of filtered products section */
+#productCarousel {
+  max-width: 50%; /* Match filtered products section width */
+  height: auto;
+  margin: 0 auto;  /* Center carousel */
+}
+
+#productCarousel .carousel-inner {
+  width: 100%; /* Ensure carousel inner takes full width */
+}
+
+#productCarousel .carousel-item img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Adjust image and carousel container */
+#productCarousel .carousel-item {
+  height: 300px; /* Adjust based on the height of the images in filtered products */
+}
+
+#productCarousel .carousel-item img {
+  height: 100%; /* Ensure image fills the container height */
+  width: auto;  /* Maintain aspect ratio */
+}
+
+.carousel-caption {
+  bottom: 0; /* Ensure captions are at the bottom */
+  background: rgba(0, 0, 0, 0.5); /* Dark background for better readability */
+  color: #fff;
+  padding: 10px;
+}
+  </style>
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">E-Shop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="products.html">Products <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html#about-us">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="login.html">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="register.html">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="cart.html">
+            <i class="fa fa-shopping-cart"></i> Cart
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Product Section -->
+  <div class="container">
+    <h2 class="text-center mb-4 text-warning">Our Products</h2>
+
+    <!-- Search, Filter, and Sort Options -->
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <h5>Search</h5>
+        <div class="input-group">
+          <input type="text" id="search-input" class="form-control" placeholder="Search products...">
+          <div class="input-group-append">
+            <span class="input-group-text"><i class="fa fa-search"></i></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h5>Filter by Price</h5>
+        <select id="filter-price" class="form-control">
+          <option value="all">All Prices</option>
+          <option value="0-20">Under $20</option>
+          <option value="20-50">$20 - $50</option>
+          <option value="50-100">$50 - $100</option>
+          <option value="100">$100 and above</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <h5>Sort By</h5>
+        <select id="sort-options" class="form-control">
+          <option value="default">Default</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Featured Products Carousel -->
+    <div id="productCarousel" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <!-- Dynamically generated indicators -->
+      </ol>
+      <div class="carousel-inner" id="carousel-inner">
+        <!-- Dynamic content will be inserted here -->
+      </div>
+      <a class="carousel-control-prev" href="#productCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#productCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+
+    <!-- Filtered Products Section -->
+    <div id="product-list" class="row"></div>
+
+    <!-- Toast notification -->
+    <div class="toast" data-autohide="false">
+      <div class="toast-header">
+        <strong class="mr-auto text-primary">Notification</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+      </div>
+      <div class="toast-body"></div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="products.js"></script>
+</body>
+
+</html>
+
+
+  <!-- Custom JavaScript for Products -->
+  <script>
+    $(document).ready(function() {
+      const products = [
+        { id: 1, name: 'Car Phone Holder', price: 19.99, description: 'A convenient holder for your car.', image: 'images/Car-Phone-Holder.jpg' },
+        { id: 2, name: 'Ice Skates', price: 49.99, description: 'Perfect for winter sports enthusiasts.', image: 'images/Ice-Skates.jpg' },
+        { id: 3, name: 'Phone Lenses', price: 39.99, description: 'Enhance your smartphone photography.', image: 'images/Phone-Lenses.jpg' },
+        { id: 4, name: 'Portable Blender', price: 59.99, description: 'Blend your favorite smoothies on the go.', image: 'images/portable-blender.jpg' },
+        { id: 5, name: 'Scented Candles', price: 19.99, description: 'Create a cozy atmosphere with soothing scents.', image: 'images/Scented-Candles.jpg' },
+        { id: 6, name: 'Sweaters', price: 39.99, description: 'Stay warm and stylish with our cozy sweaters.', image: 'images/Sweaters.jpg' },
+        { id: 7, name: 'Wireless Phone Chargers', price: 29.99, description: 'Charge your phone effortlessly without cables.', image: 'images/Wireless-Phone-Chargers.jpg' },
+        { id: 8, name: 'Yoga Mats', price: 24.99, description: 'Enhance your workout with our premium yoga mats.', image: 'images/Yoga-Mats.jpg' },
+        { id: 9, name: 'Wifi Repeater', price: 39.99, description: 'Extend your WiFi coverage effortlessly.', image: 'images/Wifi-Repeater.jpg' },
+        { id: 10, name: 'Wrist Watches', price: 89.99, description: 'Stay punctual and stylish with our elegant wrist watches.', image: 'images/Wrist-Watches.jpg' },
+      ];
+	  function populateCarousel(filteredProducts) {
+      const carouselInner = $('#carousel-inner');
+      const carouselIndicators = $('.carousel-indicators');
+      let slideItems = '';
+      let indicators = '';
+      let currentSlide = 0;
+
+      for (let i = 0; i < filteredProducts.length; i += 3) {
+        let slideContent = '<div class="carousel-item' + (currentSlide === 0 ? ' active' : '') + '"><div class="row no-gutters">';
+
+        for (let j = i; j < i + 3 && j < filteredProducts.length; j++) {
+          const product = filteredProducts[j];
+          slideContent += `
+            <div class="col-md-4 mb-4">
+              <div class="product-card">
+                <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                <div class="card-body">
+                  <h5 class="card-title">${product.name}</h5>
+                  <p class="card-text">$${product.price.toFixed(2)}</p>
+                  <p class="card-text">${product.description}</p>
+                  <button class="btn btn-primary add-to-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        slideContent += '</div></div>';
+        slideItems += slideContent;
+        indicators += `<li data-target="#productCarousel" data-slide-to="${currentSlide}" class="${currentSlide === 0 ? 'active' : ''}"></li>`;
+        currentSlide++;
+      }
+
+      carouselInner.html(slideItems);
+      carouselIndicators.html(indicators);
+
+      // Reinitialize carousel after dynamic content update
+      $('#productCarousel').carousel('dispose').carousel();
+    }
+
+
+      const renderProducts = (productsToRender) => {
+        $('#product-list').empty();
+        productsToRender.forEach(product => {
+          $('#product-list').append(`
+            <div class="col-md-4 product-list">
+              <div class="card product-card">
+                <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                <div class="card-body">
+                  <h5 class="card-title">${product.name}</h5>
+                  <p class="card-text">${product.description}</p>
+                  <p class="card-text text-primary">$${product.price.toFixed(2)}</p>
+                  <button class="btn btn-primary add-to-cart" data-id="${product.id}">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          `);
+        });
+      };
+
+      const renderCarousel = () => {
+        $('#carousel-inner').empty();
+        products.slice(0, 3).forEach((product, index) => {
+          $('#carousel-inner').append(`
+            <div class="carousel-item ${index === 0 ? 'active' : ''}">
+              <img src="${product.image}" class="d-block w-100" alt="${product.name}">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>${product.name}</h5>
+                <p>${product.description}</p>
+                <p class="text-primary">$${product.price.toFixed(2)}</p>
+              </div>
+            </div>
+          `);
+          $('.carousel-indicators').append(`
+            <li data-target="#productCarousel" data-slide-to="${index}" class="${index === 0 ? 'active' : ''}"></li>
+          `);
+        });
+      };
+
+      renderProducts(products);
+      renderCarousel();
+
+      $('#search-input').on('input', function() {
+        const searchTerm = $(this).val().toLowerCase();
+        const filteredProducts = products.filter(product =>
+          product.name.toLowerCase().includes(searchTerm) ||
+          product.description.toLowerCase().includes(searchTerm)
+        );
+        renderProducts(filteredProducts);
+      });
+
+      $('#filter-price').on('change', function() {
+        const filterValue = $(this).val();
+        let filteredProducts = products;
+        if (filterValue !== 'all') {
+          const [min, max] = filterValue.split('-').map(Number);
+          filteredProducts = products.filter(product => {
+            if (max) {
+              return product.price >= min && product.price <= max;
+            }
+            return product.price >= min;
+          });
+        }
+        renderProducts(filteredProducts);
+      });
+
+      $('#sort-options').on('change', function() {
+        const sortValue = $(this).val();
+        const sortedProducts = [...products];
+        if (sortValue === 'price-asc') {
+          sortedProducts.sort((a, b) => a.price - b.price);
+        } else if (sortValue === 'price-desc') {
+          sortedProducts.sort((a, b) => b.price - a.price);
+        }
+        renderProducts(sortedProducts);
+      });
+
+      $(document).on('click', '.add-to-cart', function() {
+        const productId = $(this).data('id');
+        const product = products.find(p => p.id === productId);
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existingProduct = cart.find(item => item.id === productId);
+        if (existingProduct) {
+          existingProduct.quantity += 1;
+        } else {
+          product.quantity = 1;
+          cart.push(product);
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        $('.toast-body').text('Product added to cart!');
+        $('.toast').toast('show');
+      });
+    });
+
+  </script>
+</body>
+
+</html>
