@@ -104,10 +104,6 @@ We welcome contributions to improve the E-SHOP website. To contribute:
 
 Please ensure that your contributions adhere to the project's coding standards and include appropriate documentation.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Contact
 
 For any inquiries or feedback, please reach out to:
